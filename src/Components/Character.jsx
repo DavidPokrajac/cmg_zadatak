@@ -3,20 +3,20 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const CharacterRow = styled.td`
-        width: 40%;
-        font-size: 1.1em;
-        border: 1px solid skyblue;
-        box-shadow: 0 0 2px skyblue;
-        padding: 0.3em 0.2em;
-    `;
+    width: 40%;
+    font-size: 1.1em;
+    border: 1px solid skyblue;
+    box-shadow: 0 0 2px skyblue;
+    padding: 0.3em 0.2em;
+`;
 
-    const OtherRows = styled.td`
-        text-align: center;
-        font-size: 1.1em;
-        border: 1px solid skyblue;
-        box-shadow: 0 0 2px skyblue;
-        padding: 0.5em 0.4em;
-    `;
+const OtherRows = styled.td`
+    text-align: center;
+    font-size: 1.1em;
+    border: 1px solid skyblue;
+    box-shadow: 0 0 2px skyblue;
+    padding: 0.5em 0.4em;
+`;
 
 const Character = (props) => {
 

@@ -5,45 +5,45 @@ import CharacterFilter from "./CharacterFilter";
 import styled from "styled-components";
 
 const MainTitle = styled.h1`
-        text-align: center;
-        color: skyblue;
-    `;
+    text-align: center;
+    color: skyblue;
+`;
 
-    const Table = styled.table`
-        border: 1px solid skyblue;
-        margin: 1em auto;
-        background-color: #333;
-        width: 90%;
-        border-collapse: collapse;
-        color: white;
-    `
+const Table = styled.table`
+    border: 1px solid skyblue;
+    margin: 1em auto;
+    background-color: #333;
+    width: 90%;
+    border-collapse: collapse;
+    color: white;
+`;
 
-    const LeadingHeaderCells = styled.th`
-        font-size: 1.2em;
-        border: 1px solid skyblue; 
-        padding: 0.5em;
-        background-color: dodgerblue;
-        color: white;
-    `;
+const LeadingHeaderCells = styled.th`
+    font-size: 1.2em;
+    border: 1px solid skyblue; 
+    padding: 0.5em;
+    background-color: dodgerblue;
+    color: white;
+`;
 
-    const Button = styled.button`
-        display: inline-block;
-        padding: 0.5em 1em;
-        font-family: inherit;
-        text-transform: uppercase;
-        font-size: 1.1em;
-        background-color: dodgerblue;
-        color: white;
-        border: none;
-        margin: 1em;
+const Button = styled.button`
+    display: inline-block;
+    padding: 0.5em 1em;
+    font-family: inherit;
+    text-transform: uppercase;
+    font-size: 1.1em;
+    background-color: dodgerblue;
+    color: white;
+    border: none;
+    margin: 1em;
 
-        &:hover {
-            cursor: pointer;
-            transform: scale(1.2);
-            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
-            transition: transform 0.5s ease-in-out, box-shadow 0.4s ease-in-out;
-        }
-    `;
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.2);
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
+        transition: transform 0.5s ease-in-out, box-shadow 0.4s ease-in-out;
+    }
+`;
 
 const CharactersTable = () => {
 
@@ -73,12 +73,17 @@ const CharactersTable = () => {
         fetch(basicRequest)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 setCharacters(data);
             })
             .catch(error => console.log("Error thrown ", error));
 
     }, [results, pageNumber, genderValue, cultureValue]);
+
+    useEffect(() => {
+        if(pageNumber === 1) {
+            firstPageButton.current.style.backgroundColor = "skyblue";
+        }
+    }, [pageNumber]);
 
 
     const changeResults = (e) => {
@@ -97,6 +102,7 @@ const CharactersTable = () => {
         setPageNumber(1);
         prevPageButton.current.disabled = true;
         nextPageButton.current.disabled = false;
+        lastPageButton.current.style.backgroundColor = "dodgerblue";
     }
 
     const previousPageHandler = () => {
@@ -104,11 +110,17 @@ const CharactersTable = () => {
             setPageNumber(pageNumber - 1);
         } 
         nextPageButton.current.disabled = false;
+        lastPageButton.current.style.backgroundColor = "dodgerblue";
     }
 
     const nextPageHandler = () => {
         setPageNumber(pageNumber + 1);
         prevPageButton.current.disabled = false;
+        firstPageButton.current.style.backgroundColor = "dodgerblue";
+        if((results === 10 && pageNumber === 213) || (results === 25 && pageNumber === 85) || (results === 50 && pageNumber === 42)) {
+            lastPageButton.current.style.backgroundColor = "skyblue";
+            nextPageButton.current.disabled = true;
+        }
     }
 
     const lastPageHandler = () => {
@@ -116,16 +128,22 @@ const CharactersTable = () => {
             setPageNumber(214);
             nextPageButton.current.disabled = true;
             prevPageButton.current.disabled = false;
+            lastPageButton.current.style.backgroundColor = "skyblue";
+            firstPageButton.current.style.backgroundColor = "dodgerblue";
         }
         if(results === 25) {
             setPageNumber(86);
             nextPageButton.current.disabled = true;
             prevPageButton.current.disabled = false;
+            lastPageButton.current.style.backgroundColor = "skyblue";
+            firstPageButton.current.style.backgroundColor = "dodgerblue";
         }
         if(results === 50) {
             setPageNumber(43);
             nextPageButton.current.disabled = true;
             prevPageButton.current.disabled = false;
+            lastPageButton.current.style.backgroundColor = "skyblue";
+            firstPageButton.current.style.backgroundColor = "dodgerblue";
         }
     }
 

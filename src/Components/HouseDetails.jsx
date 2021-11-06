@@ -3,36 +3,37 @@ import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const Div = styled.div`
-background-color: rgb(41, 39, 39);
+    background-color: rgb(41, 39, 39);
 `;
 
 const Table = styled.table`
-border: 1px solid skyblue;
-margin: 1em auto;
-background-color: #333;
-width: 90%;
-border-collapse: collapse;
-color: whitesmoke;
-`
+    border: 1px solid skyblue;
+    margin: 1em auto;
+    background-color: #333;
+    width: 90%;
+    border-collapse: collapse;
+    color: whitesmoke;
+`;
 
 const LeadingHeaderCells = styled.th`
-font-size: 1.2em;
-border: 1px solid skyblue; 
-padding: 0.5em;
-background-color: dodgerblue;
-color: white;
+    font-size: 1.2em;
+    border: 1px solid skyblue; 
+    padding: 0.5em;
+    background-color: dodgerblue;
+    color: white;
 `;
 
 const OtherRows = styled.td`
-text-align: center;
-font-size: 1.1em;
-border: 1px solid skyblue;
-padding: 0.5em 0.4em;
+    text-align: center;
+    font-size: 1.1em;
+    border: 1px solid skyblue;
+    padding: 0.5em 0.4em;
 `;
 
 const HouseDetails = () => {
 
     const [houseData, setHouseData] = useState([]);
+    const [cadetBranches, setCadetBraches] = useState("");
 
     const location = useLocation();
     const { mainURL } = location.state;
@@ -43,6 +44,7 @@ const HouseDetails = () => {
             .then(response => response.json())
             .then(data => {
                 setHouseData(data);
+                setCadetBraches(data.cadetBranches);
             })
             .catch(error => console.log("Error thrown ", error));
 
@@ -72,7 +74,7 @@ const HouseDetails = () => {
                         </tr>
                         <tr>
                             <LeadingHeaderCells>Titles</LeadingHeaderCells>
-                            <OtherRows>{houseData.titles}</OtherRows>
+                            <OtherRows>{houseData.titles === "" ? "None" : houseData.titles}</OtherRows>
                         </tr>
                         <tr>
                             <LeadingHeaderCells>Seats</LeadingHeaderCells>
@@ -88,7 +90,7 @@ const HouseDetails = () => {
                         </tr>
                         <tr>
                             <LeadingHeaderCells>Number of Cadet Branches</LeadingHeaderCells>
-                            <OtherRows>{houseData.cadetBranches}</OtherRows>
+                            <OtherRows>{cadetBranches.length}</OtherRows>
                         </tr>
                     </tbody>
                 </Table>
