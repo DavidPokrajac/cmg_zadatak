@@ -34,6 +34,8 @@ const HouseDetails = () => {
 
     const [houseData, setHouseData] = useState([]);
     const [cadetBranches, setCadetBraches] = useState("");
+    const [titles, setTitles] = useState([]);
+    const [seats, setSeats] = useState([]);
 
     const location = useLocation();
     const { mainURL } = location.state;
@@ -43,8 +45,11 @@ const HouseDetails = () => {
         fetch(mainURL)
             .then(response => response.json())
             .then(data => {
+                console.log(data);
                 setHouseData(data);
                 setCadetBraches(data.cadetBranches);
+                setTitles(data.titles);
+                setSeats(data.seats);
             })
             .catch(error => console.log("Error thrown ", error));
 
@@ -74,11 +79,11 @@ const HouseDetails = () => {
                         </tr>
                         <tr>
                             <LeadingHeaderCells>Titles</LeadingHeaderCells>
-                            <OtherRows>{houseData.titles === "" ? "None" : houseData.titles}</OtherRows>
+                            <OtherRows>{(titles === "") || (titles[0] === "") ? "None" : titles.join(", ")}</OtherRows>
                         </tr>
                         <tr>
                             <LeadingHeaderCells>Seats</LeadingHeaderCells>
-                            <OtherRows>{houseData.seats}</OtherRows>
+                            <OtherRows>{(seats === "") || (seats[0] === "") ? "None" : seats.join(", ")}</OtherRows>
                         </tr>
                         <tr>
                             <LeadingHeaderCells>Has died out</LeadingHeaderCells>

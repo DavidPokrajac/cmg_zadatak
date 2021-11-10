@@ -65,7 +65,7 @@ const CharactersTable = () => {
         if(genderValue) {
             basicRequest += "&gender=" + genderValue;
         } else if(cultureValue) {
-            basicRequest += "&culture=" + cultureValue
+            basicRequest += "&culture=" + cultureValue;
         } else if(genderValue && cultureValue) {
             basicRequest += "&gender=" + genderValue + "&culture=" + cultureValue;
         }
